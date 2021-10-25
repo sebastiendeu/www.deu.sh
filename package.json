@@ -10,7 +10,7 @@
     "autoprefixer": "^10.3.7",
     "postcss": "^8.3.8",
     "tailwindcss": "^2.2.17",
-    "vite": "^2.5.10"
+    "vite": "^2.6.11"
   },
   "dependencies": {
     "number-rollup": "^1.2.0"
