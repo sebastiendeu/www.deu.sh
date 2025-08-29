@@ -1,8 +1,12 @@
-FROM nginx:1.21.6-alpine
+FROM node:lts-alpine as builder
+WORKDIR /app
 
-COPY docker/nginx.conf /etc/nginx/nginx.conf
-COPY docker/default.conf /etc/nginx/conf.d/default.conf
+COPY package*.json /app
+RUN npm ci
+COPY . /app
+RUN npm run build
 
-COPY dist /usr/share/nginx/html/
+FROM nginx:mainline-alpine
 
-EXPOSE 80
+COPY nginx.conf /etc/nginx/conf.d/default.conf
+COPY --from=builder /app/dist/frontend/browser /usr/share/nginx/html
